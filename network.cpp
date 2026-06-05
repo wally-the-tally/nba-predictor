@@ -2,11 +2,8 @@
 #include <random>
 #include <iostream>
 #include "network.hpp"
-// public:
-//     int inputSize;
-//     int hiddenSize;
-//     int outputSize;
-//     int numberOfHiddenLayers;
+#include "training.hpp"
+
 // public:
 NeuralNetwork::NeuralNetwork(int inputSize, int hiddenSize, int outputSize, int numberOfHiddenLayers) {
         std::random_device rd;
@@ -17,20 +14,28 @@ NeuralNetwork::NeuralNetwork(int inputSize, int hiddenSize, int outputSize, int 
         this->outputSize = outputSize;
         this->numberOfHiddenLayers = numberOfHiddenLayers;
         // Initialize the neural network parameters
-        std::vector<std::vector<double>> weights(numberOfHiddenLayers+1, std::vector<double>(hiddenSize, 0.0));
-        std::vector<std::vector<double>> biases(numberOfHiddenLayers+1, std::vector<double>(hiddenSize, 0.0));
+        this->weights = std::vector<std::vector<std::vector<double>>>(
+    numberOfHiddenLayers + 1,
+    std::vector<std::vector<double>>(
+        hiddenSize,
+        std::vector<double>(inputSize)
+    )
+    );
+    this->biases = std::vector<std::vector<double>>(
+        numberOfHiddenLayers + 1,
+        std::vector<double>(hiddenSize)
+    );
         for(int i = 0; i < numberOfHiddenLayers+1; i++) {
-            std::cout << "Layer " << i << " weights: ";
-            for (double weight : weights[i]) {
-                weight = dis(gen);
-                std::cout << weight << " ";
+            for (int j = 0; j < hiddenSize; j++) {
+                for (int k = 0; k < weights[i][j].size(); k++) {
+                    weights[i][j][k] = dis(gen);
+                }   
+                biases[i][j] = dis(gen);
             }
-            std::cout << "\nLayer " << i << " biases: ";
-            for (double bias : biases[i]) {
-                bias = dis(gen);
-                std::cout << bias << " ";
-            }
-            std::cout << std::endl;
         }
+        std::cout << "Neural network initialized with input size: " << inputSize 
+                  << ", hidden size: " << hiddenSize 
+                  << ", output size: " << outputSize 
+                  << ", number of hidden layers: " << numberOfHiddenLayers << std::endl;
     }
 

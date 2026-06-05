@@ -10,7 +10,7 @@ public:
     int hiddenSize;
     int outputSize;
     int numberOfHiddenLayers;
-    std::vector<std::vector<double>> weights;
+    std::vector<std::vector<std::vector<double>>> weights;
     std::vector<std::vector<double>> biases;
 public:
     NeuralNetwork(int inputSize, int hiddenSize, int outputSize, int numberOfHiddenLayers); 
