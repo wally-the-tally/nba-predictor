@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "network.hpp"
+#include "trainingdata.hpp"
 
 // Loss function
 double meanSquaredError(const std::vector<double>& predicted,
@@ -9,7 +10,6 @@ double meanSquaredError(const std::vector<double>& predicted,
 
 // Training function (declaration only)
 void train(NeuralNetwork& network,
-           const std::vector<std::vector<double>>& inputs,
-           const std::vector<std::vector<double>>& targets,
+           const std::vector<TrainingSample>& data,
            double learningRate,
            int epochs);

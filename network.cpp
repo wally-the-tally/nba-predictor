@@ -13,11 +13,6 @@ NeuralNetwork::NeuralNetwork(int inputSize, int hiddenSize, int outputSize, int 
     this->hiddenSize = hiddenSize;
     this->outputSize = outputSize;
     this->numberOfHiddenLayers = numberOfHiddenLayers;
-
-    // FIX: each layer has different row/col counts
-    //   - layer 0 (first hidden): rows=hiddenSize, cols=inputSize
-    //   - middle hidden layers:   rows=hiddenSize, cols=hiddenSize
-    //   - output layer (last):    rows=outputSize, cols=hiddenSize
     this->weights.resize(numberOfHiddenLayers + 1);
     this->biases.resize(numberOfHiddenLayers + 1);
 
